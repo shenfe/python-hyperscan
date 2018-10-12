@@ -7,7 +7,7 @@ import sqlite3
 import sys
 import timeit
 
-import hyperscan
+import hpsc as hyperscan
 
 
 flagchars = {
@@ -79,6 +79,7 @@ def bench(database, corpus_path, pcre_path, mode=hyperscan.HS_MODE_STREAM):
     else:
         for blob in iter_corpus(corpus_path):
             database.scan(blob)
+
 
 def main(args):
     mode = (hyperscan.HS_MODE_BLOCK if args.block_mode

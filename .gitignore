@@ -104,3 +104,5 @@ ENV/
 # mkdocs documentation
 /site
 0
+
+Pipfile*

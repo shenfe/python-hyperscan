@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-import hyperscan
+import hpsc as hyperscan
 
 
 patterns = (

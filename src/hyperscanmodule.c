@@ -68,7 +68,7 @@ static const char* get_package_version(void) {
   PyObject *pkg_resources, *odist, *oversion;
   pkg_resources = PyImport_ImportModuleNoBlock("pkg_resources");
   odist = PyObject_CallMethod(pkg_resources, "get_distribution",
-                              "s", "hyperscan");
+                              "s", "hpsc");
 
   if (PyErr_Occurred()) {
     Py_DECREF(odist);
@@ -356,7 +356,7 @@ static PyMethodDef Database_methods[] = {
 
 static PyTypeObject DatabaseType = {
   PyVarObject_HEAD_INIT(NULL, 0)
-  "hyperscan.Database",         /* tp_name */
+  "hpsc.Database",              /* tp_name */
   sizeof(Database),             /* tp_basicsize */
   0,                            /* tp_itemsize */
   (destructor)Database_dealloc, /* tp_dealloc */
@@ -433,7 +433,7 @@ static int Stream_init(Stream *self, PyObject *args, PyObject *kwds) {
     return -1;
   if (!PyObject_IsInstance(self->database, (PyObject*)&DatabaseType)) {
     PyErr_SetString(PyExc_TypeError,
-                    "database must be a hyperscan.Database instance");
+                    "database must be a hpsc.Database instance");
     return -1;
   }
   return 0;
@@ -507,7 +507,7 @@ static PyObject* Stream_scan(Stream *self, PyObject *args, PyObject *kwds) {
     scratch = (hs_scratch_t*)((Scratch*)((Database*)self->database)->scratch)->scratch;
   else {
     if (!PyObject_IsInstance(oscratch, (PyObject*)&ScratchType)) {
-      PyErr_SetString(PyExc_TypeError, "scratch must be a hyperscan.Scratch instance");
+      PyErr_SetString(PyExc_TypeError, "scratch must be a hpsc.Scratch instance");
       return NULL;
     }
     scratch = ((Scratch*)oscratch)->scratch;
@@ -579,7 +579,7 @@ static PySequenceMethods Stream_sequence_methods = {
 
 static PyTypeObject StreamType = {
   PyVarObject_HEAD_INIT(NULL, 0)
-  "hyperscan.Stream",           /* tp_name */
+  "hpsc.Stream",                /* tp_name */
   sizeof(Stream),               /* tp_basicsize */
   0,                            /* tp_itemsize */
   (destructor)Stream_dealloc,   /* tp_dealloc */
@@ -688,7 +688,7 @@ static PyMethodDef Scratch_methods[] = {
 
 static PyTypeObject ScratchType = {
   PyVarObject_HEAD_INIT(NULL, 0)
-  "hyperscan.Scratch",          /* tp_name */
+  "hpsc.Scratch",               /* tp_name */
   sizeof(Scratch),              /* tp_basicsize */
   0,                            /* tp_itemsize */
   (destructor)Scratch_dealloc,  /* tp_dealloc */
@@ -794,10 +794,10 @@ static PyMethodDef Hyperscan_methods[] = {
   {NULL}
 };
 
-MOD_INIT(hyperscan) {
+MOD_INIT(hpsc) {
   PyObject *m;
 
-  MOD_DEF(m, "hyperscan", "Hyperscan bindings for CPython.", Hyperscan_methods);
+  MOD_DEF(m, "hpsc", "Hyperscan bindings for CPython.", Hyperscan_methods);
 
   if (!m)
     return MOD_ERROR_VAL;
@@ -839,7 +839,7 @@ MOD_INIT(hyperscan) {
   ADD_INT_CONSTANT(m, HS_TUNE_FAMILY_SLM);
   ADD_INT_CONSTANT(m, HS_TUNE_FAMILY_SNB);
 
-  HyperscanError = PyErr_NewException("hyperscan.error", NULL, NULL);
+  HyperscanError = PyErr_NewException("hpsc.error", NULL, NULL);
   Py_INCREF(HyperscanError);
   PyModule_AddObject(m, "error", HyperscanError);
 

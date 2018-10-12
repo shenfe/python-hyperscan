@@ -260,7 +260,7 @@ static PyObject* Database_scan(Database *self, PyObject *args, PyObject *kwds) {
                                    &octx, &oscratch))
     return NULL;
   py_scan_callback_ctx cctx = {ocallback, octx};
-  Py_BEGIN_ALLOW_THREADS
+  // Py_BEGIN_ALLOW_THREADS
   hs_error_t err = hs_scan(
     self->db,
     data,
@@ -272,7 +272,7 @@ static PyObject* Database_scan(Database *self, PyObject *args, PyObject *kwds) {
     ocallback == Py_None ? NULL : (void*)&cctx
   );
   HANDLE_HYPERSCAN_ERR(err, NULL);
-  Py_END_ALLOW_THREADS
+  // Py_END_ALLOW_THREADS
   Py_RETURN_NONE;
 }
 

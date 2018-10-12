@@ -43,14 +43,14 @@ def pkgconfig(libs, optional=''):
 
 def setup():
     ext = setuptools.extension.Extension(
-        'hyperscan',
+        'hpsc',
         ['src/hyperscanmodule.c'],
         **pkgconfig(['libhs'])
     )
     setup_requirements = ['six', 'setuptools>=17.1', 'setuptools_scm']
     setuptools.setup(
-        author='David Gidwani',
-        author_email='david.gidwani@gmail.com',
+        author='sk',
+        author_email='youchuangqiba@163.com',
         classifiers=[
             'Development Status :: 2 - Pre-Alpha',
             'Topic :: Software Development :: Libraries',
@@ -76,9 +76,9 @@ def setup():
         ext_modules=[ext],
         license='MIT',
         long_description=readme(),
-        name='hyperscan',
+        name='hpsc',
         setup_requires=setup_requirements,
-        url='https://github.com/darvid/python-hyperscan',
+        url='https://github.com/shenfe/python-hyperscan',
         use_scm_version={
             'version_scheme': 'python-simplified-semver',
         },
